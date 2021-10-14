@@ -1,0 +1,285 @@
+<body style="margin:10px; background-color: black" id="bodyId">
+</body>
+<style>
+    #fileId{
+        display:none;
+    }
+    .fileClass{
+        display:block;
+        height: 75px;
+        width:150px;
+        line-height:77px;
+        border-radius: 10px;
+        position:absolute;
+        top:140px;
+        z-index: 0;
+    }
+    .fileClass:before{
+        content:"";/*スペースでいいからなにかしらの文字列が必要*/
+        background:
+        linear-gradient(217deg, rgba(99, 242, 255, 0.8), rgba(0, 0, 0, 0) 70.71%),
+        linear-gradient(127deg, rgba(189, 249, 255, 0.8), rgba(0, 0, 0, 0) 70.71%),
+        linear-gradient(336deg, rgba(0,0,255,.8), rgba(0, 0, 0, 0) 70.71%);
+        height:100%;
+        width:100%;
+        position:absolute;
+        border-radius: 10px;
+        z-index: -1;
+        transition: 0.5s;
+    }
+    .fileClass:after{
+        content:"";/*スペースでいいからなにかしらの文字列が必要*/
+        background:
+        linear-gradient(217deg, rgba(255, 252, 99, 0.8), rgba(0, 0, 0, 0) 70.71%),
+        linear-gradient(127deg, rgba(208, 255, 189, 0.8), rgba(0, 0, 0, 0) 70.71%),
+        linear-gradient(336deg, rgba(255, 60, 0, 0.8), rgba(0, 0, 0, 0) 70.71%);
+        height:100%;
+        width:100%;
+        position:absolute;
+        border-radius: 10px;
+        top:0;
+        z-index: -2;
+    }
+    .fileClass:hover:before{
+        opacity: 0;
+    }
+    .colorClass{
+        display:block;
+        height: 75px;
+        width:150px;
+        line-height:77px;
+        border-radius: 10px;
+        position:absolute;
+        top:280px;
+        z-index: 0;
+        padding:17px;
+        background-color: transparent;
+        border:none;
+    }
+    .colorClass:before{
+        content:"";/*スペースでいいからなにかしらの文字列が必要*/
+        background:
+        linear-gradient(217deg, rgba(99, 242, 255, 0.8), rgba(0, 0, 0, 0) 70.71%),
+        linear-gradient(127deg, rgba(189, 249, 255, 0.8), rgba(0, 0, 0, 0) 70.71%),
+        linear-gradient(336deg, rgba(0,0,255,.8), rgba(0, 0, 0, 0) 70.71%);
+        height:100%;
+        width:100%;
+        position:absolute;
+        border-radius: 10px;
+        z-index: -1;
+        transition: 0.5s;
+        left:0;
+        top:0;
+    }
+    .colorClass:after{
+        content:"";/*スペースでいいからなにかしらの文字列が必要*/
+        background:
+        linear-gradient(217deg, rgba(255, 252, 99, 0.8), rgba(0, 0, 0, 0) 70.71%),
+        linear-gradient(127deg, rgba(208, 255, 189, 0.8), rgba(0, 0, 0, 0) 70.71%),
+        linear-gradient(336deg, rgba(255, 60, 0, 0.8), rgba(0, 0, 0, 0) 70.71%);
+        height:100%;
+        width:100%;
+        position:absolute;
+        border-radius: 10px;
+        top:0;
+        z-index: -2;
+        left:0;
+    }
+    .colorClass:hover:before{
+        opacity: 0;
+    }
+    .child{
+        font-size: 25px;
+        text-align: center;
+        color:white;
+    }
+    .font1{
+        font-size: 50px;
+        color: white;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .font2{
+        position:absolute;
+        font-size: 25px;
+        color:white;
+        top:240px;
+    }
+    .font3{
+        position:absolute;
+        font-size: 25px;
+        color:white;
+        top:100px;
+    }
+    .font4{
+        color:rgba(255, 255, 255, 0.472);
+        position: absolute;
+        bottom:0;
+    }
+    .checkboxClass{
+        position: absolute;
+        left:15px;/*初期位置がなんかおかしいw*/
+        top:380px;
+        width:30px;
+        height:30px;
+    }
+    .font5{
+        position: absolute;
+        color:white;
+        top:380px;
+        left:55px;
+        font-size: 25px;
+    }
+    form{
+        background-color: rgba(0, 0, 0, 0.198);
+        width:500px;
+        height: 500px;
+        padding-left: 10px;
+    }
+</style>
+<form name="formName" class="formClass">
+    <div class="font1">
+        スクリーンセーバー
+    </div>
+    <div class="font3">
+        画像モード
+    </div>
+    <label for="fileId" class="fileClass">
+            <div class="child">
+            画像選択
+            </div>
+        <input type="file" id="fileId" name="fileName">
+    </label>
+    <div class="font2">
+        単色背景
+    </div>
+    <input type="color" id="colorId" class="colorClass">
+    <div class="font4">
+        ©2021 ⑨な人PJT
+    </div>
+    <input type="checkbox" id="checkboxId" name="checkboxName" checked class="checkboxClass" onclick="onOff()"><div class="font5">
+        小さい画像をリピートして表示する
+    </div>
+</form>
+
+
+<script>
+var x=0
+var y=0
+var rock=false
+var colorPicker = document.getElementById("colorId")
+var color = colorPicker.value
+var body = document.getElementById("bodyId")
+var explorer = document.getElementById("fileId")
+var form = document.getElementsByName("formName")[0]//[0] は０番目の要素??
+var checkbox = document.getElementById("checkboxId")
+var checkTF = checkbox.checked
+var repeat = true
+var pictureMode = false
+function onOff(){
+    checkTF = checkbox.checked
+    console.log(checkTF)
+    if(checkTF == true){
+        repeat = true
+        if(pictureMode==true){
+            body.setAttribute("style", "background-image:url('" + URL.createObjectURL(new FormData(form).get('fileName')) + "');")
+            document.documentElement.requestFullscreen()
+            form.style.display="none"//なぜかsetAttributeがボタンに使えない
+        }
+    }else{
+        repeat = false
+        if(pictureMode==true){
+            body.setAttribute("style", "background-image:url('" + URL.createObjectURL(new FormData(form).get('fileName')) + "');background-size:cover;")
+            document.documentElement.requestFullscreen()
+            form.style.display="none"//なぜかsetAttributeがボタンに使えない
+        }
+    }
+}
+
+
+function setColor(){
+    color = colorPicker.value
+    body.setAttribute("style", "background-color:"+color+";")
+    rock = false
+    form.style.display="block"//なぜかsetAttributeがボタンに使えない
+    pictureMode = false
+}
+function display(){
+    if(repeat == true){
+        body.setAttribute("style", "background-image:url('" + URL.createObjectURL(new FormData(form).get('fileName')) + "');")
+    }else{
+        body.setAttribute("style", "background-image:url('" + URL.createObjectURL(new FormData(form).get('fileName')) + "');background-size:cover;")
+    }
+    pictureMode = true
+    document.documentElement.requestFullscreen()
+    form.style.display="none"//なぜかsetAttributeがボタンに使えない
+}
+colorPicker.addEventListener("change",setColor,false)
+explorer.addEventListener("change",display)
+
+document.onclick = function (event) {
+    x=event.pageX
+    y=event.pageY
+    console.log(x,y)
+    if(x > 20+30 && x < 150+20){//bodyのmargin気にしたほうがいいかもそれとformのpadding-left:10px;
+        if(y < 55+20+140){//label の height:50px; +50 labelのpadding-top:20px +20 labelの top:140px; でさらに+100
+            if(y >= 140){//if(a && b) にするとなんかバグる orz からいちいち ifを何回も重ねてる..
+                rock=true
+            }else{
+                rock=false
+            }
+        }else if(y < 75+280){
+            if(y >= 280){
+                rock=true
+            }else{
+                rock=false
+            }
+        }else{
+            rock=false
+        }
+
+    }else if(x < 20+30){
+        if(y <= 410){
+            if(y >= 380){
+                rock=true
+            }else{
+                rock=false
+            }
+        }else{
+            rock=false
+        }
+    }else{
+        rock=false
+    }
+
+    
+
+  if (document.fullscreenElement && rock==false) {
+    　  document.exitFullscreen()
+        .catch((err) => console.error(err))
+        form.style.display="block"//なぜかsetAttributeがボタンに使えない
+        
+  } else {
+      if(rock == false){
+        document.documentElement.requestFullscreen()
+        form.style.display="none"//なぜかsetAttributeがボタンに使えない
+      }
+  }
+
+}
+
+document.addEventListener("keydown",function(event){
+    if (document.fullscreenElement && rock==false) {
+    　  document.exitFullscreen()
+        .catch((err) => console.error(err))
+        form.style.display="block"//なぜかsetAttributeがボタンに使えない
+            
+    } else {
+        if(rock == false){
+            document.documentElement.requestFullscreen()
+            form.style.display="none"//なぜかsetAttributeがボタンに使えない
+        }
+    }
+  })
+</script>
