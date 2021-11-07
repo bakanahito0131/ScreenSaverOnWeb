@@ -1,3 +1,4 @@
+
 <body style="margin:10px; background-color: black" id="bodyId">
 </body>
 <style>
@@ -91,11 +92,11 @@
     .child{
         font-size: 25px;
         text-align: center;
-        color:white;
+        color:whitesmoke;
     }
     .font1{
         font-size: 50px;
-        color: white;
+        color: whitesmoke;
         font-weight: bold;
         display: inline-block;
     }
@@ -103,13 +104,13 @@
     .font2{
         position:absolute;
         font-size: 25px;
-        color:white;
+        color:whitesmoke;
         top:240px;
     }
     .font3{
         position:absolute;
         font-size: 25px;
-        color:white;
+        color:whitesmoke;
         top:100px;
     }
     .font4{
@@ -126,7 +127,7 @@
     }
     .font5{
         position: absolute;
-        color:white;
+        color:whitesmoke;
         top:380px;
         left:55px;
         font-size: 25px;
@@ -136,6 +137,9 @@
         width:500px;
         height: 500px;
         padding-left: 10px;
+    }
+    .fadeCursor{
+	cursor:none;
     }
 </style>
 <form name="formName" class="formClass">
@@ -177,9 +181,49 @@ var checkbox = document.getElementById("checkboxId")
 var checkTF = checkbox.checked
 var repeat = true
 var pictureMode = false
-function onOff(){
+var w = screen.width
+var h = screen.height
+
+function fullscreen(){
+	if (document.fullscreenElement && rock==false) {
+		document.exitFullscreen()
+		.catch((err) => console.error(err))
+		form.style.display="block"//なぜかsetAttributeがボタンに使えない
+	} else {
+      		if(rock == false){
+                                document.documentElement.requestFullscreen()
+    		form.style.display="none"//なぜかsetAttributeがボタンに使えない
+		}
+	}
+}
+
+function picturemodeOn() {
+        if(pictureMode==true){
+            body.setAttribute("style", "background-image:url('" + URL.createObjectURL(new FormData(form).get('fileName')) + "');background-size:cover;")
+            document.documentElement.requestFullscreen()
+            form.style.display="none"//なぜかsetAttributeがボタンに使えない
+        }
+}
+function picturemodeOff() {
+	//
+}
+
+function resize(){
+	if(w == window.innerWidth){
+		if(h == window.innerHeight){
+			body.classList.add("fadeCursor")
+		}else{
+			body.classList.remove("fadeCursor")
+		}		
+	}else{
+		body.classList.remove("fadeCursor")
+	}
+}
+window.onresize = function(){
+	setTimeout(resize,100)//遅延させずにウィンドウサイズを取得したらリサイズされる前の値が帰ってきてしまう
+}
+function onOff(){//画像のリピートオンオフ
     checkTF = checkbox.checked
-    console.log(checkTF)
     if(checkTF == true){
         repeat = true
         if(pictureMode==true){
@@ -196,7 +240,6 @@ function onOff(){
         }
     }
 }
-
 
 function setColor(){
     color = colorPicker.value
@@ -253,33 +296,10 @@ document.onclick = function (event) {
         rock=false
     }
 
-    
-
-  if (document.fullscreenElement && rock==false) {
-    　  document.exitFullscreen()
-        .catch((err) => console.error(err))
-        form.style.display="block"//なぜかsetAttributeがボタンに使えない
-        
-  } else {
-      if(rock == false){
-        document.documentElement.requestFullscreen()
-        form.style.display="none"//なぜかsetAttributeがボタンに使えない
-      }
-  }
-
+    fullscreen()
 }
 
 document.addEventListener("keydown",function(event){
-    if (document.fullscreenElement && rock==false) {
-    　  document.exitFullscreen()
-        .catch((err) => console.error(err))
-        form.style.display="block"//なぜかsetAttributeがボタンに使えない
-            
-    } else {
-        if(rock == false){
-            document.documentElement.requestFullscreen()
-            form.style.display="none"//なぜかsetAttributeがボタンに使えない
-        }
-    }
-  })
+	fullscreen()
+})
 </script>
